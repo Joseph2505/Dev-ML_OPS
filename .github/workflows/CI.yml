@@ -3,9 +3,7 @@ name: CI
 on:
   push:
     branches: 
-    - staging
-    - main
-    - feature_CI_CD
+    - raha_feature_e2e
   pull_request:
     branches: [ "staging" ]
 
