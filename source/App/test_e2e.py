@@ -22,7 +22,7 @@ class TestDefaultSuite():
     # Test name: Test
     # Step # | name | target | value
     # 1 | open | / | 
-    self.driver.get("http://localhost:8501/")
+    self.driver.get("https://dev-mlops.streamlit.app/")
     # 2 | setWindowSize | 1294x1040 | 
     self.driver.set_window_size(1294, 1040)
     # 3 | mouseDown | xpath=//div[@id='root']/div/div/div/div/div/section/div/div[2]/div/div/div/div/div[2]/div/div/div | 
