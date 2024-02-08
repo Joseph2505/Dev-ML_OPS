@@ -2,13 +2,12 @@ name: Download Kaggle Dataset
 #test if working docker
 on:
   push:
-    branches:
+    branches-ignore:
       - main
   schedule:
     - cron: '30 23 * * *'
 permissions:
   contents: write
-
 
 jobs:
   download_dataset:
