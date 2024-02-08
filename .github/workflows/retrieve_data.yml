@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - main
-      
+  schedule:
+    - cron: '50 22 * * *'
 permissions:
   contents: write
+
 jobs:
   download_dataset:
     runs-on: ubuntu-latest
@@ -40,13 +42,21 @@ jobs:
         unzip dataset/transfusion-dataset.zip -d dataset
         rm dataset/transfusion-dataset.zip
 
+    - name: Set local Git identity
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+
     - name: Commit and push changes
       run: |
         git add dataset/*
-        if git diff --staged --quiet; then
+        CHANGES=$(git diff --staged --quiet; echo $?)
+        LAST_COMMIT_USER=$(git log -1 --pretty=format:'%an')
+        if [ "$CHANGES" == "0" ]; then
           echo "No changes in the dataset, skipping commit and push."
+        elif [ "$LAST_COMMIT_USER" == "GitHub Action" ]; then
+          echo "Last commit made by GitHub Action, skipping to avoid loop."
         else
           git commit -m "Add dataset"
           git push
         fi
-    
