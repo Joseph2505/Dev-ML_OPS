@@ -1,18 +1,15 @@
+
 name: Python application CD
 ##
 on:
   push:
-    branches: [ "dev" ]
-  pull_request:
-    branches: [ "dev" ]
+    tags:
+      - 'ci-success-*'
 
 permissions:
   contents: read
 
 jobs:
-  ci:
-    uses: ./.github/workflows/CI.yaml
-    
   deploy_to_production:
     runs-on: ubuntu-latest
     steps:
@@ -37,14 +34,18 @@ jobs:
 
       - name: Deploy to production
         run: |
-          # Télécharger la nouvelle version de l'image Docker
           docker pull evach28/mlopsproject:latest
+          if [ $(docker container inspect -f '{{.State.Running}}' mlops_app 2> /dev/null) == "true" ]; then
+            echo "Container already running..."
+            docker container stop mlops_app
+            docker container rm mlops_app
+            docker run -d --name mlops_app -p 6000:6000 evach28/mlopsproject:latest
+          else
+            echo "New container..."
+            docker run -d --name mlops_app -p 6000:6000 evach28/mlopsproject:latest
+          fi
 
-          # Démarrer le conteneur Docker dans l'environnement de production
-          docker run -d --name mlops_app -p 8080:8080 evach28/mlopsproject:latest
-
-          # Exécuter des tests après le déploiement
-          # Cela peut inclure des tests d'intégration, des tests de bout en bout, etc.
-
-          # Envoyer des notifications sur le succès ou l'échec du déploiement
-          # Cela peut inclure l'envoi d'e-mails, de messages Slack, etc.
+      - name: Redeploy streamlit
+        run: |
+          echo "Redeploy on $(date)"
+          

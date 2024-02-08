@@ -40,14 +40,6 @@ jobs:
         unzip dataset/transfusion-dataset.zip -d dataset
         rm dataset/transfusion-dataset.zip
 
-    - name: Run pytest
-      run: |
-        pytest source/unit_test.py
-    - name: Set local Git identity
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-
     - name: Commit and push changes
       run: |
         git add dataset/*
