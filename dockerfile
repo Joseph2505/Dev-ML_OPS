@@ -12,10 +12,10 @@ RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Make port 80 available to the world outside this container
-EXPOSE 8501
+EXPOSE 6000
 
 # Define environment variable
 ENV NAME World
 
 # Run app.py when the container launches
-CMD ["streamlit", "run", "--server.port=8501", "source/App/app.py"]
+CMD ["streamlit", "run", "source/App/app.py"]
