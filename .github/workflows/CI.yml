@@ -5,7 +5,7 @@ on:
     branches: 
     - staging
     - main
-    - feature_CI_CD
+    - dev
   pull_request:
     branches: [ "staging" ]
 
@@ -18,10 +18,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Python 3.10
+    - name: Set up Python 3.9
       uses: actions/setup-python@v3
       with:
-        python-version: "3.10"
+        python-version: "3.9"
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
