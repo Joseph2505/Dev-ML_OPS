@@ -4,7 +4,6 @@ from PIL import Image
 from load_data import load_data
 from train_model import train_model
 from sklearn.metrics import accuracy_score
-import plotly.express as px
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -64,8 +63,6 @@ st.write(prediction)
 st.subheader('Prediction Probability')
 st.write(prediction_proba)
 
-fig = px.histogram(trans, x='Frequency', title='Distribution of Donation Frequency')
-st.plotly_chart(fig)
 
 
 feature_importances = pd.DataFrame(model.feature_importances_,
