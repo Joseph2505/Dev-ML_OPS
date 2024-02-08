@@ -44,6 +44,5 @@ jobs:
             echo "Le conteneur n'existe pas. Démarrage d'un nouveau conteneur..."
             docker run -d --name mlops_app -p 8501:8501 evach28/mlopsproject:latest
           fi
-          streamlit run source/App/app.py
           docker ps -a
           docker ps
