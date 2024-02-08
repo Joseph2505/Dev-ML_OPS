@@ -34,15 +34,16 @@ jobs:
       - name: Deploy to production
         run: |
           docker pull evach28/mlopsproject:latest
-          docker ps -a
           if [ $(docker container inspect -f '{{.State.Running}}' mlops_app 2> /dev/null) == "true" ]; then
-            echo "Le conteneur existe déjà et est en cours d'exécution. Mise à jour du conteneur..."
+            echo "Container already running..."
             docker container stop mlops_app
             docker container rm mlops_app
             docker run -d --name mlops_app -p 6000:6000 evach28/mlopsproject:latest
           else
-            echo "Le conteneur n'existe pas. Démarrage d'un nouveau conteneur..."
+            echo "New container..."
             docker run -d --name mlops_app -p 6000:6000 evach28/mlopsproject:latest
           fi
-          docker ps -a
-          docker ps
+
+      - name: Redeploy streamlit
+        run: |
+          echo "Redeploy on $(date)"

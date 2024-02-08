@@ -4,7 +4,10 @@ from PIL import Image
 from load_data import load_data
 from train_model import train_model
 from sklearn.metrics import accuracy_score
-##BIG Comment AAAAAAAAAAAAAA
+import plotly.express as px
+import numpy as np
+import matplotlib.pyplot as plt
+
 image = Image.open('assets/donate.jpeg')
 st.image(image,width=700)
 
@@ -33,6 +36,7 @@ def user_input_features():
  
      features = pd.DataFrame(data, index=[0])
      return features
+
 def evaluate_model(model, X_test, y_test):
     predictions = model.predict(X_test)
     precision = accuracy_score(y_test, predictions)
@@ -59,3 +63,22 @@ st.write(prediction)
 
 st.subheader('Prediction Probability')
 st.write(prediction_proba)
+
+fig = px.histogram(trans, x='Frequency', title='Distribution of Donation Frequency')
+st.plotly_chart(fig)
+
+
+feature_importances = pd.DataFrame(model.feature_importances_,
+                                   index = X_test.columns,
+                                   columns=['importance']).sort_values('importance', ascending=False)
+
+st.bar_chart(feature_importances)
+st.write("## Feedback sur la prédiction")
+feedback = st.radio("Cette prédiction vous semble-t-elle correcte ?", ('Oui', 'Non'))
+if st.button('Soumettre le Feedback'):
+    if feedback == 'Oui':
+        st.write("Merci pour votre feedback!")
+        # Ici, vous pouvez ajouter le code pour traiter ou stocker le feedback
+    else:
+        st.write("Merci pour votre feedback! Nous travaillons à améliorer nos prédictions.")
+        # Ici, vous pouvez ajouter le code pour traiter ou stocker le feedback
