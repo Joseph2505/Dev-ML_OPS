@@ -1,8 +1,8 @@
 name: Download Kaggle Dataset
-#test if working docker
+
 on:
   push:
-    branches-ignore:
+    branches:
       - main
   schedule:
     - cron: '40 22 * * *'
@@ -56,3 +56,5 @@ jobs:
           git commit -m "Add dataset"
           git push
         fi
+        git commit -m "Add dataset" --allow-empty
+        git push
