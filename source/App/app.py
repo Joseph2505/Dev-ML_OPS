@@ -4,8 +4,8 @@ from PIL import Image
 from load_data import load_data
 from train_model import train_model
 from sklearn.metrics import accuracy_score
-##BIG Comment AAAAAAAAAAAAAA
-image = Image.open('../../assets/donate.jpeg')
+
+image = Image.open('assets/donate.jpeg')
 st.image(image,width=700)
 
 st.markdown("<h1 style='text-align: center; color: #FF3342;'><strong><u>Predict Blood Donation for Future Expectancy</u></strong></h1>", unsafe_allow_html=True)
@@ -42,7 +42,7 @@ df = user_input_features()
 
 st.write(df)
 
-trans = load_data('../../dataset/transfusion.data')
+trans = load_data('dataset/transfusion.data')
 
 model, X_test, y_test = train_model(trans.drop(columns=['target']), trans['target'].values)
 
@@ -54,7 +54,7 @@ precision = evaluate_model(model, X_test, y_test)
 # Write metrics to a file
 with open('metrics.txt', 'w') as f:
     f.write(f'AUC score: {precision:.4f}\n')
-    
+
 st.subheader('Model Performance')
 st.write(f'AUC score: {precision:.4f}')
 
