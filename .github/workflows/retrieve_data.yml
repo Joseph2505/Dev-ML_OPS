@@ -2,7 +2,7 @@ name: Download Kaggle Dataset
 
 on:
   schedule:
-    - cron: '45 23 * * *'
+    - cron: '48 21 * * *'
 permissions:
   contents: write
 
