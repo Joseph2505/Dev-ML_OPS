@@ -11,6 +11,8 @@ jobs:
             REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           pip install -r requirements.txt
-          python source/App/app.py
+          streamlit run source/App/app.py
+          # Generate report.md file here
+          echo "Report" > report.md
           # Add CML report
-          cml-send-comment report.md
+          cml comment create --file report.md
