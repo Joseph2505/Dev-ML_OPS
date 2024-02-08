@@ -44,3 +44,5 @@ jobs:
             echo "Le conteneur n'existe pas. Démarrage d'un nouveau conteneur..."
             docker run -d --name mlops_app -p 8080:8080 evach28/mlopsproject:latest
           fi
+          docker ps -a
+          docker ps
