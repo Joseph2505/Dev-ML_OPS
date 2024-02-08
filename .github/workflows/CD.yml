@@ -1,0 +1,51 @@
+
+name: Python application CD
+##
+on:
+  push:
+    tags:
+      - 'ci-success-*'
+
+permissions:
+  contents: read
+
+jobs:
+  deploy_to_production:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: evach28/mlopsproject:latest
+
+      - name: Deploy to production
+        run: |
+          docker pull evach28/mlopsproject:latest
+          if [ $(docker container inspect -f '{{.State.Running}}' mlops_app 2> /dev/null) == "true" ]; then
+            echo "Container already running..."
+            docker container stop mlops_app
+            docker container rm mlops_app
+            docker run -d --name mlops_app -p 6000:6000 evach28/mlopsproject:latest
+          else
+            echo "New container..."
+            docker run -d --name mlops_app -p 6000:6000 evach28/mlopsproject:latest
+          fi
+
+      - name: Redeploy streamlit
+        run: |
+          echo "Redeploy on $(date)"
+          
