@@ -62,20 +62,3 @@ st.write(prediction)
 
 st.subheader('Prediction Probability')
 st.write(prediction_proba)
-
-
-
-feature_importances = pd.DataFrame(model.feature_importances_,
-                                   index = X_test.columns,
-                                   columns=['importance']).sort_values('importance', ascending=False)
-
-st.bar_chart(feature_importances)
-st.write("## Feedback sur la prédiction")
-feedback = st.radio("Cette prédiction vous semble-t-elle correcte ?", ('Oui', 'Non'))
-if st.button('Soumettre le Feedback'):
-    if feedback == 'Oui':
-        st.write("Merci pour votre feedback!")
-        # Ici, vous pouvez ajouter le code pour traiter ou stocker le feedback
-    else:
-        st.write("Merci pour votre feedback! Nous travaillons à améliorer nos prédictions.")
-        # Ici, vous pouvez ajouter le code pour traiter ou stocker le feedback
