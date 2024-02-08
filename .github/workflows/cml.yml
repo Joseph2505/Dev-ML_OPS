@@ -1,0 +1,14 @@
+name: cml workflow
+on: [push]
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: iterative/setup-cml@v1
+      - name: CML Run
+        run: |
+          pip install -r requirements.txt
+          python source/App/app.py
+          # Add CML report
+          cml-send-comment report.md
