@@ -4,6 +4,8 @@ from PIL import Image
 from load_data import load_data
 from train_model import train_model
 from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
+
 
 image = Image.open('assets/donate.jpeg')
 st.image(image,width=700)
@@ -43,6 +45,30 @@ df = user_input_features()
 st.write(df)
 
 trans = load_data('dataset/transfusion.data')
+
+# Plot histograms for each feature
+for column in ['Recency', 'Frequency', 'Monetary', 'Time']:
+    plt.figure()
+    trans[column].hist()
+    plt.title(column)
+    st.pyplot(plt)
+plt.savefig('model_results1.png', dpi=120)
+
+# Scatter plot of Frequency vs Recency
+plt.figure()
+plt.scatter(trans['Recency'], trans['Frequency'])
+plt.xlabel('Recency')
+plt.ylabel('Frequency')
+plt.title('Frequency vs Recency')
+st.pyplot(plt)
+plt.savefig('model_results2.png', dpi=120)
+
+# Box plot for Monetary values
+plt.figure()
+trans.boxplot(column='Monetary')
+plt.title('Monetary values')
+st.pyplot(plt)
+plt.savefig('model_results3.png', dpi=120)
 
 model, X_test, y_test = train_model(trans.drop(columns=['target']), trans['target'].values)
 
