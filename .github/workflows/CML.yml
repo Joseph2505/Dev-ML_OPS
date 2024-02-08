@@ -18,6 +18,4 @@ jobs:
             echo "## Model Metrics" > report.md
             cat metrics.txt >> report.md
             
-            echo "\n## Model Performance" >> report.md
-            
             cml-send-comment report.md
