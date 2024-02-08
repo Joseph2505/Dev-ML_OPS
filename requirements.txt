@@ -4,5 +4,3 @@ pandas
 pytest
 streamlit
 Pillow
-matplotlib
-seaborn
