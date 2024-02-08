@@ -1,4 +1,5 @@
 name: mlops-exaple-tensorflow-regression
+## Workflow to train a model and log metrics and plots to CML
 on: [push]
 jobs:
   run:
