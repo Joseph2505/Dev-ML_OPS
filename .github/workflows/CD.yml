@@ -1,6 +1,5 @@
+name: CD
 
-name: Python application CD
-##
 on:
   push:
     tags:
