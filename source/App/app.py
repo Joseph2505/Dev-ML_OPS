@@ -4,8 +4,6 @@ from PIL import Image
 from load_data import load_data
 from train_model import train_model
 from sklearn.metrics import accuracy_score
-import numpy as np
-import matplotlib.pyplot as plt
 
 image = Image.open('assets/donate.jpeg')
 st.image(image,width=700)

@@ -4,6 +4,3 @@ pandas
 pytest
 streamlit
 Pillow
-plotly
-matplotlib
-numpy
