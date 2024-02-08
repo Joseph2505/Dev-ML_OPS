@@ -51,6 +51,10 @@ prediction_proba = model.predict_proba(df)
 
 precision = evaluate_model(model, X_test, y_test)
 
+# Write metrics to a file
+with open('metrics.txt', 'w') as f:
+    f.write(f'AUC score: {precision:.4f}\n')
+    
 st.subheader('Model Performance')
 st.write(f'AUC score: {precision:.4f}')
 
