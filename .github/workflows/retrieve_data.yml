@@ -1,6 +1,9 @@
 name: Download Kaggle Dataset
 
 on:
+  push:
+    branches:
+      - main
   schedule:
     - cron: '50 22 * * *'
 permissions:
@@ -47,11 +50,13 @@ jobs:
     - name: Commit and push changes
       run: |
         git add dataset/*
-        if git diff --staged --quiet; then
+        CHANGES=$(git diff --staged --quiet; echo $?)
+        LAST_COMMIT_USER=$(git log -1 --pretty=format:'%an')
+        if [ "$CHANGES" == "0" ]; then
           echo "No changes in the dataset, skipping commit and push."
+        elif [ "$LAST_COMMIT_USER" == "GitHub Action" ]; then
+          echo "Last commit made by GitHub Action, skipping to avoid loop."
         else
           git commit -m "Add dataset"
           git push
         fi
-        git commit -m "Add dataset" --allow-empty
-        git push
