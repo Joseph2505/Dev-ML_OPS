@@ -69,4 +69,4 @@ jobs:
   
       # Exécuter les tests E2E
       - name: Run E2E tests
-        run: python test_e2e.py
+        run: pytest /source/App/test_e2e.py
