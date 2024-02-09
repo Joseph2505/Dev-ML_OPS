@@ -11,7 +11,6 @@ jobs:
       env:
             repo_token: ${{ secrets.GT_TOKEN }}
       run: |
-
             # Your ML workflow goes here
             pip install -r requirements.txt
             python source/App/app.py
@@ -23,15 +22,12 @@ jobs:
             echo "First plot" >> report.md
           
             cml-publish model_results1.png --md >> report.md
-
             echo "\n## Model Performance" >> report.md
             echo "Second plot" >> report.md
           
             cml-publish model_results2.png --md >> report.md
-
             echo "\n## Model Performance" >> report.md
             echo "Third plot" >> report.md
           
             cml-publish model_results3.png --md >> report.md
-
             cml-send-comment report.md
