@@ -6,7 +6,6 @@ from train_model import train_model
 from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
 
-
 image = Image.open('assets/donate.jpeg')
 st.image(image,width=700)
 
@@ -89,3 +88,5 @@ st.write(prediction)
 
 st.subheader('Prediction Probability')
 st.write(prediction_proba)
+
+
