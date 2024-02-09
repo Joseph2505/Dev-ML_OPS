@@ -4,5 +4,3 @@ pandas
 pytest
 streamlit
 Pillow
-selenium
-webdriver_manager
