@@ -1,0 +1,37 @@
+name: mlops-exaple-tensorflow-regression
+## Workflow to train a model and log metrics and plots to CML
+on: [push]
+jobs:
+  run:
+    runs-on: [ubuntu-latest]
+    container: docker://dvcorg/cml-py3:latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: 'Train my model'
+      env:
+            repo_token: ${{ secrets.GT_TOKEN }}
+      run: |
+
+            # Your ML workflow goes here
+            pip install -r requirements.txt
+            python source/App/app.py
+            
+            echo "## Model Metrics" > report.md
+            cat metrics.txt >> report.md
+            
+            echo "\n## Model Performance" >> report.md
+            echo "First plot" >> report.md
+          
+            cml-publish model_results1.png --md >> report.md
+
+            echo "\n## Model Performance" >> report.md
+            echo "Second plot" >> report.md
+          
+            cml-publish model_results2.png --md >> report.md
+
+            echo "\n## Model Performance" >> report.md
+            echo "Third plot" >> report.md
+          
+            cml-publish model_results3.png --md >> report.md
+
+            cml-send-comment report.md
