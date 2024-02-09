@@ -17,7 +17,7 @@ class TestApp(unittest.TestCase):
       self.driver.quit()
 
   def test_prediction(self):
-      self.driver.get("https://dev-mlops.streamlit.app/")  # Mettez l'URL de votre application Streamlit ici
+      self.driver.get("https://dev-mlops-dev.streamlit.app/")  # Mettez l'URL de votre application Streamlit ici
       
       # # Attendez que l'élément de slider Recency soit visible
       # recency_slider = WebDriverWait(self.driver, 30).until(
