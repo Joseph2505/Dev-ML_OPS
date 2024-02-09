@@ -64,10 +64,8 @@ jobs:
       # Installer les dépendances nécessaires pour les tests E2E
       - name: Install dependencies for E2E tests
         run: |
-          python -m pip install --upgrade pip
-          pip install selenium
-          pip install pytest
-  
+          pip install -r requirements.txt
+          
       # Exécuter les tests E2E
       - name: Run E2E tests
         run: pytest source/App/test_e2e.py
